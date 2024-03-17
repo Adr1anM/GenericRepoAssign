@@ -14,7 +14,7 @@ namespace GenericRepoAssignment
         private readonly IRepository<Order> _orders;
         private static int _lastOrderId = 0;
 
-        public MarketPlace(IRepository<Paint> paints , IRepository<Sculpture> sculptures,         IRepository<Order> order)
+        public MarketPlace(IRepository<Paint> paints , IRepository<Sculpture> sculptures, IRepository<Order> order)
         {
             _paints = paints;
             _sculptures = sculptures;
@@ -54,6 +54,7 @@ namespace GenericRepoAssignment
 
         public void Purchase(Product product, int quantity, string customerName)
         {
+
             if (product == null)
                 throw new ArgumentNullException(nameof(product), "Product cannot be null.");
 

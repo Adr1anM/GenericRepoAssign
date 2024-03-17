@@ -34,21 +34,38 @@ foreach (Product product in productList)
     Console.WriteLine($"Products Id: {product.Id} ProductType: {type}");
 }
 
-market.Purchase(paint3, 3, "Justin Blake");
-market.Purchase(sculpture1, 2, "Alan Noris");
+try 
+{
+    market.Purchase(sculpture1, 2, "Alan Noris");
+}
+catch(ArgumentNullException ex)
+{
+    Console.WriteLine($"Error: {ex.Message}");
+}
+catch(ArgumentException ex)
+{
+    Console.WriteLine($"Error: {ex.Message}");
+}
+
+try
+{
+    market.Purchase(paint1, 3, "John Weak");
+}
+catch(ArgumentNullException ex)
+{
+    Console.WriteLine($"Error: {ex.Message}");
+}
+catch (ArgumentException ex)
+{
+    Console.WriteLine($"Error: {ex.Message}");
+}
+
 DisplayPaintdata(paint3);
 DisplayScuptureData(sculpture1);
 
 IList<Order> allOrders = orders.GetAll();
 
-foreach (Order order in allOrders)
-{
-    Console.WriteLine($"\nOrder Id: {order.Id}" +
-                      $"\nProduct Id: {order.ProductId}" +
-                      $"\nOdrer quantity: {order.Quantity}" +
-                      $"\nOrder Date: {order.OrderDate}" +
-                      $"\nCustomer Name: {order.CustomerName}");
-}
+PrintOrders(allOrders);
 
 static void DisplayPaintdata(Paint paint)
 {
@@ -63,4 +80,25 @@ static void DisplayScuptureData(Sculpture scupture)
                       $"\nSculpture's author: {scupture.Author}" +
                       $"\nSculpture count: {scupture.SculptureCount}" +
                       $"\nSculpture's price: {scupture.Price}");
+}
+
+
+static void PrintOrders(IList<Order> allOrders)
+{
+    if(allOrders.Count > 0)
+    {
+        foreach (Order order in allOrders)
+        {
+            Console.WriteLine($"\nOrder Id: {order.Id}" +
+                              $"\nProduct Id: {order.ProductId}" +
+                              $"\nOdrer quantity: {order.Quantity}" +
+                              $"\nOrder Date: {order.OrderDate}" +
+                              $"\nCustomer Name: {order.CustomerName}");
+        }
+    }
+    else
+    {
+        Console.WriteLine("There are no orders");
+    }
+    
 }
